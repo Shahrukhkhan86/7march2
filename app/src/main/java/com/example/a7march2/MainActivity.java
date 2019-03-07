@@ -10,47 +10,55 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    EditText edit1, edit2;
+    EditText editText,edittxt1;
     Button button;
     String s1;
     String s2;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        edit1=findViewById(R.id.edit1);
-        edit2=findViewById(R.id.edit2) ;
-        button=findViewById(R.id.button);
+        editText =findViewById(R.id.editText);
+        edittxt1 = findViewById(R.id.editText1);
+        button = findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String user =edit1.getText().toString().trim();
-                String pass =edit2.getText().toString().trim();
+                String user = editText.getText().toString().trim();
+                String pass = edittxt1.getText().toString().trim();
                 if(user.equals(s1)&& pass.equals(s2))
                 {
-                    Toast.makeText(MainActivity.this, "Successfull", Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(MainActivity.this, "user name successful", Toast.LENGTH_SHORT).show();
                 }
                 else
-
                 {
-                    Toast.makeText(MainActivity.this, "Not Success", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, " not successfull", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+    @Override
+    protected void onPause() {
+
+        super.onPause();
+        SharedPreferences sharedPreferences = getSharedPreferences("com.example.a7march2",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("username",editText.getText().toString().trim());
+        editor.putString("password",edittxt1.getText().toString().trim());
+        editor.putBoolean("bool",true);
+        editor.apply();
 
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        SharedPreferences sharedPreferences=getSharedPreferences("com.example.a7march2",MODE_PRIVATE);
-        SharedPreferences.Editor editor=sharedPreferences.edit();
-        editor.putString("username","shahrukh.khan_mca18@gla.ac.in");
-        editor.putString("password","12345");
-
-
-
-
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences sharedPreferences = getSharedPreferences("com.example.a7march2",MODE_PRIVATE);
+        s1= sharedPreferences . getString("name","user");
+        s2 = sharedPreferences .getString("password","12345");
+        Boolean remember = sharedPreferences.getBoolean("bool",false);
+        Toast.makeText(this, "bool"+remember, Toast.LENGTH_SHORT).show();
+        editText.setText(s1);
     }
 }
