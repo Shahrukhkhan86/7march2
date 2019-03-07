@@ -1,6 +1,7 @@
 package com.example.a7march2;
 
 import android.app.backup.SharedPreferencesBackupHelper;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -60,5 +61,6 @@ public class MainActivity extends AppCompatActivity {
         Boolean remember = sharedPreferences.getBoolean("bool",false);
         Toast.makeText(this, "bool"+remember, Toast.LENGTH_SHORT).show();
         editText.setText(s1);
+        edittxt1.setText(s2);
     }
 }
